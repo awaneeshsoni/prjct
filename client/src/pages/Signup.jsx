@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import authService from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import Link from "../../../server/models/Link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
