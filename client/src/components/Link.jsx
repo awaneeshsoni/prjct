@@ -8,7 +8,8 @@ export default function LinkComp(props){
             <h4 className="text-lg font-semibold text-gray-600">{props.title}</h4>
             <p className="text-gray-400 font-serif">{props.url}</p>
             </div>
-            <Link className=" inline-block h-10 bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300 transition duration-200 text-sm font-semibold" to={`/links/${props.id}`}>Edit</Link>
+            <Link className=" inline-block h-10 bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300 transition duration-200 text-sm font-semibold" 
+            to={`/links/${props.id}`}>Edit</Link>
         </div>
     )
 }
