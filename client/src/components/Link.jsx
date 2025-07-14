@@ -1,15 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function LinkComp(props){
-    return(
-        <div className="flex flex-row w-60 h-auto justify-between bg-white rounded-lg shadow-md mb-4 p-4">
-            <div>
-            <h4 className="text-lg font-semibold text-gray-600">{props.title}</h4>
-            <p className="text-gray-400 font-serif">{props.url}</p>
-            </div>
-            <Link className=" inline-block h-10 bg-gray-200 text-gray-700 py-2 px-4 rounded-full hover:bg-gray-300 transition duration-200 text-sm font-semibold" 
-            to={`/links/${props.id}`}>Edit</Link>
-        </div>
-    )
+export default function LinkComp({ id, title, url }) {
+  return (
+    <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-sm p-4 mb-4 flex flex-col gap-2">
+      <div>
+        <h4 className="text-lg font-semibold text-gray-800">{title}</h4>
+        <p className="text-sm text-gray-500 break-all">{url}</p>
+      </div>
+
+      <div className="flex justify-end">
+        <Link
+          to={`/links/${id}`}
+          className="bg-orange-500 text-white px-4 py-1.5 text-sm rounded-md hover:bg-orange-600 transition"
+        >
+          Edit
+        </Link>
+      </div>
+    </div>
+  );
 }

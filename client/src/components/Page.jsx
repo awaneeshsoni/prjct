@@ -1,16 +1,26 @@
 import React from "react";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Page({title, slug, id}){
-    return(
-        <div className="flex flex-row justify-between w-60 mt-4 bg-white rounded-lg shadow-md p-4">
-            <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
-            <div className="flex justify-between space-x-2">
-            <Link className="inline-block bg-gray-800 text-white py-2 px-4 rounded-full h-10 hover:bg-gray-700 transition duration-200 text-sm font-semibold " 
-            to={`/pages/${id}`}>Edit</Link>
-            <Link target="_blank" className="inline-block bg-gray-500 text-white py-2 px-4 rounded-full h-10 hover:bg-gray-700 transition duration-200 text-sm font-semibold" 
-            to={`/${slug}`} >Visit</Link>
-            </div>
-        </div>
-    )
+export default function Page({ title, slug, id }) {
+  return (
+    <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-sm p-4 mb-4">
+      <h3 className="text-lg font-semibold text-gray-800 mb-1">{title}</h3>
+      <p className="text-sm text-gray-500 mb-4 break-all">prjct.in/{slug}</p>
+      <div className="flex gap-3">
+        <Link
+          to={`/pages/${id}`}
+          className="bg-orange-500 text-white px-4 py-1.5 text-sm rounded-md hover:bg-orange-600 transition"
+        >
+          Edit
+        </Link>
+        <Link
+          to={`/${slug}`}
+          target="_blank"
+          className="bg-gray-200 text-gray-800 px-4 py-1.5 text-sm rounded-md hover:bg-gray-300 transition"
+        >
+          Visit
+        </Link>
+      </div>
+    </div>
+  );
 }

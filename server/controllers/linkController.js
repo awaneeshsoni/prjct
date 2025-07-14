@@ -1,7 +1,7 @@
 import Link from "../models/Link.js";
 
 export async function createLink(req, res) {
-    const { title, url } = req.body;
+    let { title, url } = req.body;
     try {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'https://' + url;
@@ -45,19 +45,30 @@ export async function getLink(req, res) {
 }
 
 export async function editLink(req, res) {
-    const { title, url, id } = req.body;
+    let { title, url } = req.body;
+    const { id } = req.params;
+
     try {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'https://' + url;
         }
-        const link = await Link.findOneAndUpdate({ _id: id }, { title, url });
-        return res.status(200).json({ message: "Link updated successfully!", link })
-    }
-    catch (error) {
-        return res.status(500).json({ message: "Error updating link", error })
+
+        const link = await Link.findOneAndUpdate(
+            { _id: id },
+            { title, url },
+            { new: true } 
+        );
+
+        if (!link) {
+            return res.status(404).json({ message: "Link not found" });
+        }
+
+        return res.status(200).json({ message: "Link updated successfully!", link });
+    } catch (error) {
+        console.error("Error updating link:", error);
+        return res.status(500).json({ message: "Error updating link", error: error.message });
     }
 }
-
 export async function deleteLink(req, res) {
     const { id } = req.params
     try {

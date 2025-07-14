@@ -86,9 +86,6 @@ export async function editPage(req,res){
     }
 
     const userLinks = await Link.find({_id: {$in: links}, user: userId})
-    if(userLinks.length != links.length){
-        return res.status(400).json({error: "some links are invalid or do not belong to the user"})
-    }
 
     page.title = title;
     page.description = description;
