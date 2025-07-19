@@ -21,7 +21,7 @@ export default function CreateLink() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black">
+    <div className="flex flex-col min-h-screen text-black">
       <div className="flex-grow flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-md bg-white border border-gray-200 shadow-lg rounded-2xl p-8">
           <h2 className="text-2xl font-bold text-center mb-6">Add New Link</h2>

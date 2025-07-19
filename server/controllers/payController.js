@@ -1,4 +1,8 @@
 import {createCheckout, lemonSqueezySetup} from "@lemonsqueezy/lemonsqueezy.js"
+import User from "../models/User.js"
+import { configDotenv } from 'dotenv';
+import crypto from "crypto";
+configDotenv();
 
 export async function Checkout(req, res){
   const { variantId, userId, email } = req.body;
@@ -39,8 +43,7 @@ export async function Checkout(req, res){
 }
 
 const plans = {
-    "574871": "pro",
-    "576491": "business"
+    "576492": "pro"
 };
 
 export async function Webhook(req, res){

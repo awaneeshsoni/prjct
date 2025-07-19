@@ -1,11 +1,6 @@
 import axios from "axios";
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 
 const API = import.meta.env.VITE_API_URL
-const token = localStorage.getItem("token")
-// const {token} = useContext(AuthContext)
-// const Authorization = `Bearer ${token}`
 const authHeader = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,

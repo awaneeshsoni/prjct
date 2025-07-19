@@ -7,9 +7,9 @@ export async function signup(req, res) {
   const { name, email, password } = req.body;
   try {
     const hashPass = await bcrypt.hash(password, 10);
-    const emailCheck = await User.findOne({email})
-    if(emailCheck){
-        return res.status(400).json({message: "Email already in use"})
+    const emailCheck = await User.findOne({ email })
+    if (emailCheck) {
+      return res.status(400).json({ message: "Email already in use" })
     }
     const user = await User.create({
       name,
@@ -39,7 +39,7 @@ export async function login(req, res) {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-    return res.status(200).send({ message: "Logged in successfully!", token, user});
+    return res.status(200).send({ message: "Logged in successfully!", token, user });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ message: "Error while logging in on server!", error: error.message });
@@ -48,7 +48,7 @@ export async function login(req, res) {
 
 
 export async function updateUser(req, res) {
-  const { id } = req.user || {}; 
+  const { id } = req.user || {};
   const { name, email, password } = req.body;
 
   try {
@@ -61,7 +61,7 @@ export async function updateUser(req, res) {
       const hashedPassword = await bcrypt.hash(password, 10);
       updateData.password = hashedPassword;
     }
-    if(email){
+    if (email) {
       updateData.email = email;
     }
     const updatedUser = await User.findByIdAndUpdate(id, updateData);

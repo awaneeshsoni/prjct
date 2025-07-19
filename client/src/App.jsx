@@ -1,13 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-// Public Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PublicPage from "./pages/PublicPage";
 
-// Protected Layout & Pages
 import DashboardLayout from "./components/DashboardLayout";
 import Analytics from "./pages/Analytics";
 import MessagesPage from "./pages/MessagesPage";
@@ -20,16 +18,17 @@ import EditLink from "./components/EditLink";
 import Profile from "./components/Profile";
 import Pricing from "./pages/Pricing";
 
-// Route Wrappers
 import PrivateRoute from "./components/PrivateRoute";
 import GuestRoute from "./components/GuestRoute";
+import Contact from "./pages/Contact";
+import Blog from "./pages/Blog";
+import About from "./pages/About";
 
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        {/* 🔓 Guest-only routes (Login/Signup/Home) */}
         <Route
           path="/"
           element={
@@ -55,7 +54,6 @@ export default function App() {
           }
         />
 
-        {/* 🔐 Private routes (Dashboard & all children) */}
         <Route
           path="/dashboard"
           element={
@@ -152,6 +150,11 @@ export default function App() {
         />
 
         <Route path="/:slug" element={<PublicPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/about" element={<About />} />
+
+
       </Routes>
     </Router>
   );

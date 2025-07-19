@@ -17,7 +17,6 @@ export default function MessagesPage() {
     }
   };
 
-  // 🗑️ Delete a message
   const handleDelete = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete this message?");
     if (!confirmed) return;

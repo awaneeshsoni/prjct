@@ -21,8 +21,8 @@ export default function Profile() {
       );
 
       if (res) {
-        setAuth(res.user);
-        setFormData({ name: res.user.name, password: "" });
+        setAuth({name: formData.name});
+        setFormData({ name: formData.name, password: "" });
         setEditMode(false);
       }
     } catch (err) {
@@ -34,9 +34,9 @@ export default function Profile() {
     return <div className="text-white text-center py-10">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-white text-black py-10 px-4">
+    <div className="min-h-screen text-black py-10 px-4">
       <div className="max-w-md mx-auto bg-white border border-gray-200 p-6 rounded-2xl shadow-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-orange-500">👤 Profile</h1>
+        <h1 className="text-xl font-bold mb-6 text-center text-orange-500">👤 Profile</h1>
 
         {editMode ? (
           <>

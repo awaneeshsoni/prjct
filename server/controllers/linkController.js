@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Link from "../models/Link.js";
 
 export async function createLink(req, res) {
@@ -56,7 +57,7 @@ export async function editLink(req, res) {
         const link = await Link.findOneAndUpdate(
             { _id: id },
             { title, url },
-            { new: true } 
+            { new: true }
         );
 
         if (!link) {
@@ -77,5 +78,42 @@ export async function deleteLink(req, res) {
     }
     catch (error) {
         return res.status(500).json({ messgae: "Error deleting link", error })
+    }
+}
+
+export async function trackLinkClick(req, res) {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid link ID" });
+    }
+
+    try {
+        const updatedLink = await Link.findByIdAndUpdate(
+            id,
+            {
+                $inc: { clicks: 1 },
+                $push: {
+                    clickLogs: {
+                        timestamp: new Date(),
+                        ip: req.ip,
+                        userAgent: req.headers["user-agent"],
+                    },
+                },
+            },
+            {
+                new: true,      // return the updated doc
+                upsert: false,  // set to true if you want to create if not exists
+            }
+        );
+
+        if (!updatedLink) {
+            return res.status(404).json({ message: "Link not found!" });
+        }
+
+        return res.redirect(updatedLink.url); // redirect to original URL
+    } catch (error) {
+        console.error("Error tracking link click:", error);
+        return res.status(500).json({ message: "Error tracking link click", error });
     }
 }

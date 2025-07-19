@@ -10,8 +10,13 @@ const PublicPage = () => {
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const API = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
+    fetch(`${API}/pages/track/${slug}`, {
+      method: "POST",
+    });
+
     const fetchPage = async () => {
       try {
         const res = await pageService.getPublicPage(slug);
@@ -22,6 +27,7 @@ const PublicPage = () => {
         setLoading(false);
       }
     };
+
     fetchPage();
   }, [slug]);
 
@@ -63,28 +69,30 @@ const PublicPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 py-10">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 space-y-6">
-        {/* Title + Description */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-800">{page.title}</h1>
           <p className="mt-2 text-gray-600">{page.description}</p>
         </div>
 
-        {/* Links */}
         <div className="space-y-3">
           {page.links?.map((link) => (
-            <a
+            <button
               key={link._id}
-              href={link.url.startsWith("http") ? link.url : `https://${link.url}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={() => {
+                fetch(`${API}/links/track/${link._id}`, {
+                  method: "GET",
+                }).finally(() => {
+                  const url = link.url.startsWith("http") ? link.url : `https://${link.url}`;
+                  window.open(url, "_blank");
+                });
+              }}
               className="block w-full text-center bg-gray-800 text-white font-medium py-2.5 rounded-full hover:bg-gray-700 transition"
             >
               {link.title}
-            </a>
+            </button>
           ))}
         </div>
 
-        {/* Message Form */}
         {page.allowAnonymousMessages && (
           <div>
             <h3 className="text-lg font-semibold text-gray-700 mb-2">Leave a Message</h3>
@@ -115,7 +123,6 @@ const PublicPage = () => {
           </div>
         )}
 
-        {/* Footer */}
         <p className="pt-4 text-sm text-center text-gray-500">
           Built with{" "}
           <a

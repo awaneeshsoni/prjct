@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import linkService from "../services/linkService";
 import pageService from "../services/pageService";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -14,12 +13,18 @@ export default function CreatePage() {
   const [selectedLinks, setSelectedLinks] = useState([]);
 
   const navigate = useNavigate();
-  const { token } = useContext(AuthContext);
-  const { links } = useContext(LinkContext); // ✅ no hook
-  const { pages, setPages } = useContext(PageContext); // ✅ no hook
+  const { auth, token } = useContext(AuthContext);
+  const { links } = useContext(LinkContext);
+  const { pages, setPages } = useContext(PageContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (auth?.plan === "free" && pages.length >= 1) {
+      alert("You can only create 1 page on the Free plan. Upgrade to Pro to create more!");
+      return;
+    }
+
     try {
       const res = await pageService.createPage(
         {
@@ -28,8 +33,7 @@ export default function CreatePage() {
           slug,
           allowAnonymousMessages,
           links: selectedLinks,
-        },
-        token
+        }
       );
 
       if (res?.data) {
@@ -51,7 +55,7 @@ export default function CreatePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen ">
       <div className="flex-grow flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-lg bg-white border border-gray-200 shadow-lg rounded-2xl p-8 space-y-6">
           <h2 className="text-2xl font-bold text-center text-gray-800">
@@ -96,7 +100,7 @@ export default function CreatePage() {
               <input
                 id="slug"
                 type="text"
-                placeholder="e.g. awaneesh"
+                placeholder="e.g. johncodes"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
                 required

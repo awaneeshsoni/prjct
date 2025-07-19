@@ -1,15 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { LinkContext } from "../context/LinkContext";
 import LinkComp from "../components/Link";
 import { Link } from "react-router-dom";
 
 export default function LinksPage() {
-
-  const { links, fetchLinks } = useContext(LinkContext);
-
-//   useEffect(() => {
-//     fetchLinks()
-//   },[])
+  const { links } = useContext(LinkContext);
 
   return (
     <div>
@@ -27,7 +22,12 @@ export default function LinksPage() {
         {links && links.length > 0 ? (
           links.map((lnk) => (
             <div key={lnk._id} className="w-full sm:w-[48%] lg:w-[32%]">
-              <LinkComp id={lnk._id} title={lnk.title} url={lnk.url} />
+              <LinkComp
+                id={lnk._id}
+                title={lnk.title}
+                url={lnk.url}
+                clicks={lnk.clicks || 0}
+              />
             </div>
           ))
         ) : (

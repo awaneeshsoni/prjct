@@ -25,8 +25,7 @@ export const AuthProvider = ({ children }) => {
           setLoading(false);
         } catch (err) {
           console.error("Error verifying token:", err);
-          console.log("Error verifying token:", err);
-          // logout();
+          logout();
         }
       }
       setLoading(false);
