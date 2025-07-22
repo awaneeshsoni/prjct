@@ -43,7 +43,7 @@ export async function Checkout(req, res){
 }
 
 const plans = {
-    "576492": "pro"
+    "584884": "pro"
 };
 
 export async function Webhook(req, res){
