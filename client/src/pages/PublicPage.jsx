@@ -126,7 +126,7 @@ const PublicPage = () => {
         <p className="pt-4 text-sm text-center text-gray-500">
           Built with{" "}
           <a
-            href="https://inonepage.vercel.app"
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-orange-500 font-medium hover:underline"
