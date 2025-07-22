@@ -16,7 +16,7 @@ const plans = [
     price: "$21/year",
     features: ["Unlimited Link Pages", "Messages Allowed", "Detailed Analytics"],
     buttonText: "Upgrade Now",
-    variantId: "898698",
+    variantId: "912577",
   },
 ];
 
