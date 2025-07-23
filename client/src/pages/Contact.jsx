@@ -11,7 +11,7 @@ const Contact = () => {
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Contact Us</h1>
           <p className="text-gray-600 mb-10">Have questions or feedback? We'd love to hear from you.</p>
-          <p className="text-gray-600 mb-10">Still working on the form so please mail at: awaneeshsoni.dev@gmail.com</p>
+          <p className="text-gray-600 mb-10">Still working on the form so please mail at: avanis@prjct.in</p>
 
           <form className="space-y-6 text-left opacity-50">
             <div>

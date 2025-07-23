@@ -1,20 +1,22 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 const plans = [
   {
     name: "Free",
     price: "$0",
-    features: ["1 Link Page", "Messages Allowed", "No Analytics"],
+    features: ["1 Page", "Messages Allowed", "No Analytics"],
     buttonText: "Get Started",
     buttonLink: "/dashboard",
   },
   {
     name: "Pro",
     price: "$21/year",
-    features: ["Unlimited Link Pages", "Messages Allowed", "Detailed Analytics"],
+    features: ["Unlimited Pages", "Messages Allowed", "Detailed Analytics"],
     buttonText: "Upgrade Now",
     variantId: "912577",
   },
@@ -22,9 +24,16 @@ const plans = [
 
 export default function Pricing() {
   const { auth, token } = useContext(AuthContext);
+  const navigate = useNavigate();;
+  const [loading, setLoading] = useState(false);
 
   const handleUpgrade = async () => {
+    if (!auth || !token) {
+      navigate("/login");
+      return
+    }
     try {
+      setLoading(true);
       const res = await fetch(`${import.meta.env.VITE_API_URL}/payment/create-checkout`, {
         method: "POST",
         headers: {
@@ -46,11 +55,12 @@ export default function Pricing() {
       if (!url) {
         throw new Error("Checkout URL was not returned from the server.");
       }
-
       window.location.href = url;
     } catch (err) {
       console.error(err);
       alert("Something went wrong during checkout.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,10 +105,15 @@ export default function Pricing() {
                 ) : (
                   <button
                     onClick={handleUpgrade}
-                    className="mt-auto bg-orange-500 text-white px-5 py-2 rounded-xl font-semibold hover:bg-orange-600 transition"
+                    className="mt-auto flex justify-center items-center bg-orange-500 text-white px-5 py-2 rounded-xl font-semibold hover:bg-orange-600 transition"
                   >
-                    {plan.buttonText}
+                    {loading ? (
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      plan.buttonText
+                    )}
                   </button>
+
                 )}
               </div>
             ))}

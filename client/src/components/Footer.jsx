@@ -5,7 +5,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-gray-200 text-gray-600 mt-20">
+    <footer className="bg-white border-t border-gray-200 text-gray-600 mt-10">
       <div className="max-w-6xl mx-auto px-4 py-6 text-center">
         <div className="flex justify-center flex-wrap gap-6 text-sm mb-3">
           <Link to="/" className="hover:text-orange-500 transition">
